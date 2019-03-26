@@ -16,14 +16,6 @@ admin.initializeApp({
 });
 var db = admin.firestore();
 
-// var docRef = db.collection('users').doc('alovelace');
-// var setAda = docRef.set({
-//   first: 'Ada',
-//   last: 'Lovelace',
-//   born: 1815
-// });
-// setAda
-
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
