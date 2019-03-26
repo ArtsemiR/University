@@ -9,6 +9,21 @@ var usersRouter = require('./routes/users');
 
 var app = express();
 
+const admin = require('firebase-admin');
+var serviceAccount = require('./firebase/university-26e9c-6ba7e390a561.json');
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount)
+});
+var db = admin.firestore();
+
+// var docRef = db.collection('users').doc('alovelace');
+// var setAda = docRef.set({
+//   first: 'Ada',
+//   last: 'Lovelace',
+//   born: 1815
+// });
+// setAda
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
