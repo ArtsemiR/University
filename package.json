@@ -1,5 +1,5 @@
 {
-  "name": "university",
+  "name": "webapplication",
   "version": "0.0.0",
   "private": true,
   "scripts": {
@@ -8,8 +8,11 @@
   "dependencies": {
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.9",
-    "express": "~4.16.0",
-    "firebase-admin": "^7.1.1",
+    "express": "^4.16.4",
+    "express-graphql": "^0.7.1",
+    "firebase": "^5.9.1",
+    "firebase-admin": "^7.3.0",
+    "graphql": "^14.1.1",
     "http-errors": "~1.6.2",
     "morgan": "~1.9.0",
     "pug": "^2.0.3"

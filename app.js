@@ -7,14 +7,28 @@ var logger = require('morgan');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
-var app = express();
+const productRoutes = require('./routes/products');
+const schema = require('./data/schema');
+const graphQL = require('express-graphql');
 
-const admin = require('firebase-admin');
-var serviceAccount = require('./firebase/university-26e9c-6ba7e390a561.json');
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount)
-});
-var db = admin.firestore();
+/////// firestote
+// const admin = require('firebase-admin');
+// var serviceAccount = require('./university-26e9c-firebase-adminsdk-yufum-be1090d3a3');
+// admin.initializeApp({
+//   credential: admin.credential.cert(serviceAccount)
+// });
+// var db = admin.firestore();
+//
+// var docRef = db.collection('users').doc('third');
+//
+// var setAda = docRef.set({
+//   first: 'Ada',
+//   last: 'Third',
+//   born: 1876
+// });
+/////////
+
+var app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -28,6 +42,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/products', productRoutes);
+app.use('/graphql', graphQL({ schema:schema, pretty:true }));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
