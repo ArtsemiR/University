@@ -70,7 +70,8 @@ router.get('/:userId', (req, res, next) => {
 //     "nick": "neo",
 //     "birthDate": "19.10.1996",
 //     "email": "andns@mail.ru",
-//     "phone": "+375293429733"
+//     "phone": "+375293429733",
+//     "userRole": "user"
 // }
 router.post('/add', (req, res, next) => {
     const uuidv1 = require('uuid/v1');
@@ -78,7 +79,8 @@ router.post('/add', (req, res, next) => {
     if (req.body.firstName == null,
         req.body.lastName == null,
         req.body.email == null,
-        req.body.phone == null) {
+        req.body.phone == null,
+        req.body.userRole == null) {
         res.status(500).json({
             message: 'User model is not full',
         });
@@ -91,7 +93,8 @@ router.post('/add', (req, res, next) => {
         nick: req.body.nick,
         birthDate: req.body.birthDate,
         email: req.body.email,
-        phone: req.body.phone
+        phone: req.body.phone,
+        userRole: req.body.userRole
     }).
     then(doc => {
         if (doc.empty) {
