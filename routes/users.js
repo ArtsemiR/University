@@ -47,7 +47,7 @@ router.post('/add', function(req, res, next) {
         }
 
         res.status(200).json({
-            message: 'User added',
+            code: "OK"
         });
     })
         .catch( err => {
@@ -81,7 +81,7 @@ router.post('/remove/:userId', function(req, res, next) {
                     }
 
                     res.status(200).json({
-                        message: 'User removed'
+                        code: "OK"
                     })
                 })
         })
@@ -105,8 +105,8 @@ router.get('/all', function(req, res, next) {
         }
 
         res.status(200).json({
-          message: null,
-          users: doc.docs.map(function (user) {
+            code: "OK",
+            users: doc.docs.map(function (user) {
               return user.data();
           })
         });
@@ -134,7 +134,7 @@ router.get('/user/:userId', function(req, res, next) {
             }
 
             res.status(200).json({
-                message: null,
+                code: "OK",
                 user: user
             });
         })

@@ -7,8 +7,7 @@ const ordersRef = firestoreDB.collection('orders');
 
 // http://localhost:3000/api/v1/orders/add
 // {
-//     "userId": "2fcccd10-6e54-11e9-8582-4150f32892d0",
-//     "orderDate": "25.10.1996",
+//     "userId": "2fcccd10-6e54-11e9-8582-4150f32892d0"
 //     "photoURL": "www.google.com",
 //     "description": "Описание"
 // }
@@ -16,7 +15,6 @@ router.post('/add', function(req, res, next) {
     const uuidv1 = require('uuid/v1');
     const orderId = uuidv1();
     if (req.body.userId == null,
-        req.body.orderDate == null,
         req.body.photoURL == null,
         req.body.description == null) {
         res.status(200).json({
@@ -27,7 +25,7 @@ router.post('/add', function(req, res, next) {
     ordersRef.doc(orderId).set({
         orderId: orderId,
         userId: req.body.userId,
-        orderDate: req.body.orderDate,
+        orderDate: new Date(),
         photoURL: req.body.photoURL,
         description: req.body.description
     }).
@@ -40,7 +38,7 @@ router.post('/add', function(req, res, next) {
         }
 
         res.status(200).json({
-            message: 'Order added',
+            code: "OK"
         });
     })
         .catch( err => {
@@ -73,7 +71,7 @@ router.post('/remove/:orderId', function(req, res, next) {
                     }
 
                     res.status(200).json({
-                        message: 'Order removed'
+                        code: "OK"
                     })
                 })
         })
@@ -97,7 +95,7 @@ router.get('/all', function(req, res, next) {
             }
 
             res.status(200).json({
-                message: null,
+                code: "OK",
                 orders: doc.docs.map(function (order) {
                     return order.data();
                 })
@@ -109,6 +107,32 @@ router.get('/all', function(req, res, next) {
             });
             console.log(err);
         });
+});
+
+//http://localhost:3000/api/v1/orders/2fcccd10-6e54-11e9-8582-4150f32892d0
+router.get('/:userId', function(req, res, next) {
+    const id = req.params.userId;
+    var queryRef = ordersRef.where('userId', '==', id);
+    queryRef.get()
+        .then(doc => {
+            if (doc.empty) {
+                res.status(200).json({
+                    message: 'No orders with such user'
+                });
+                return;
+            }
+
+            res.status(200).json({
+                code: "OK",
+                orders: doc.docs.map(function (order) { return order.data() })
+            });
+        })
+        .catch( err => {
+            res.status(500).json({
+                message: 'Error getting order by id'
+            });
+            console.log(err);
+        })
 });
 
 // http://localhost:3000/api/v1/users/user/0e34ef60-6e50-11e9-a578-89b89011cd2f
@@ -126,7 +150,7 @@ router.get('/order/:orderId', function(req, res, next) {
             }
 
             res.status(200).json({
-                message: null,
+                code: "OK",
                 order: order
             });
         })
