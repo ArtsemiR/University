@@ -4,6 +4,7 @@ const firebaseAdmin = require('firebase-admin');
 
 const firestoreDB = firebaseAdmin.firestore();
 const ordersRef = firestoreDB.collection('orders');
+const ratingRef = firestoreDB.collection('rating');
 
 var multer  = require('multer');
 var storage = multer.diskStorage({
@@ -27,7 +28,7 @@ var storage = multer.diskStorage({
 });
 var upload = multer({storage: storage});
 
-http://localhost:3000/api/v1/orders/uploadImage
+//http://localhost:3000/api/v1/orders/uploadImage
 
 router.post('/uploadImage',upload.single('image'),function(req, res, next) {
     console.log(req.file);
@@ -61,19 +62,20 @@ router.post('/add', function(req, res, next) {
         orderDate: new Date(),
         photoURL: req.body.photoURL,
         description: req.body.description
-    }).
-    then(doc => {
-        if (doc.empty) {
-            res.status(200).json({
-                message: 'Order not created'
-            });
-            return;
-        }
-
-        res.status(200).json({
-            code: "OK"
-        });
     })
+        .then(doc => {
+            if (doc.empty) {
+                res.status(200).json({
+                    message: 'Order not created'
+                });
+                return;
+            }
+
+            createRating(orderId);
+            res.status(200).json({
+                code: "OK"
+            });
+        })
         .catch( err => {
             res.status(500).json({
                 message: 'Order create error'
@@ -82,31 +84,29 @@ router.post('/add', function(req, res, next) {
         })
 });
 
+function createRating(orderId) {
+    ratingRef.doc(orderId).set({
+        orderId: orderId
+    });
+    ratingRef.doc(orderId).collection('likes').doc('desc').set({
+        users: [],
+        count: 0
+    });
+    ratingRef.doc(orderId).collection('dislikes').doc('desc').set({
+        users: [],
+        count: 0
+    });
+}
+
 router.post('/remove/:orderId', function(req, res, next) {
     const id = req.params.orderId;
-    var queryRef = ordersRef.where('orderId', '==', id);
-    queryRef.get()
+    ordersRef.doc(id).delete()
         .then(doc => {
-            if (doc.empty) {
-                res.status(200).json({
-                    message: 'Order does not exist'
-                });
-                return;
-            }
+            ratingRef.doc(id).delete();
 
-            ordersRef.doc(id).delete()
-                .then(doc => {
-                    if (doc.empty) {
-                        res.status(200).json({
-                            message: 'Order not removed'
-                        });
-                        return;
-                    }
-
-                    res.status(200).json({
-                        code: "OK"
-                    })
-                })
+            res.status(200).json({
+                code: "OK"
+            })
         })
         .catch( err => {
             res.status(500).json({
@@ -171,11 +171,9 @@ router.get('/:userId', function(req, res, next) {
 // http://localhost:3000/api/v1/users/user/0e34ef60-6e50-11e9-a578-89b89011cd2f
 router.get('/order/:orderId', function(req, res, next) {
     const id = req.params.orderId;
-    var queryRef = ordersRef.where('orderId', '==', id);
-    queryRef.get()
+    ordersRef.doc('id').get()
         .then(doc => {
-            const order = getOrder(id, doc);
-            if (order == null) {
+            if (!doc.exists) {
                 res.status(200).json({
                     message: 'No orders with such id'
                 });
@@ -184,7 +182,7 @@ router.get('/order/:orderId', function(req, res, next) {
 
             res.status(200).json({
                 code: "OK",
-                order: order
+                order: doc.data()
             });
         })
         .catch( err => {
@@ -194,14 +192,5 @@ router.get('/order/:orderId', function(req, res, next) {
             console.log(err);
         })
 });
-
-function getOrder(id, doc) {
-    const orders = doc.docs.map(function (order) { return order.data() });
-    if (!orders.empty) {
-        return orders[0]
-    } else {
-        return null
-    }
-}
 
 module.exports = router;

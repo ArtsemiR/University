@@ -37,19 +37,19 @@ router.post('/add', function(req, res, next) {
         email: req.body.email,
         phone: req.body.phone,
         userRole: req.body.userRole
-    }).
-    then(doc => {
-        if (doc.empty) {
-            res.status(200).json({
-                message: 'User not added'
-            });
-            return;
-        }
-
-        res.status(200).json({
-            code: "OK"
-        });
     })
+        .then(doc => {
+            if (doc.empty) {
+                res.status(200).json({
+                    message: 'User not added'
+                });
+                return;
+            }
+
+            res.status(200).json({
+                code: "OK"
+            });
+        })
         .catch( err => {
             res.status(500).json({
                 message: 'Create user error'
@@ -61,36 +61,18 @@ router.post('/add', function(req, res, next) {
 // http://localhost:3000/api/v1/users/remove/id
 router.post('/remove/:userId', function(req, res, next) {
     const id = req.params.userId;
-    var queryRef = usersRef.where('userId', '==', id);
-    queryRef.get()
+    usersRef.doc(id).delete()
         .then(doc => {
-            if (doc.empty) {
-                res.status(200).json({
-                    message: 'User does not exist'
-                });
-                return;
-            }
-
-            usersRef.doc(id).delete()
-                .then(doc => {
-                    if (doc.empty) {
-                        res.status(200).json({
-                            message: 'User not removed'
-                        });
-                        return;
-                    }
-
-                    res.status(200).json({
-                        code: "OK"
-                    })
-                })
+            res.status(200).json({
+                code: "OK"
+            })
         })
         .catch( err => {
             res.status(500).json({
                 message: 'User remove error'
             });
             console.log(err);
-        })
+        });
 });
 
 //http://localhost:3000/api/v1/users/all
@@ -122,11 +104,9 @@ router.get('/all', function(req, res, next) {
 // http://localhost:3000/api/v1/users/user/0e34ef60-6e50-11e9-a578-89b89011cd2f
 router.get('/user/:userId', function(req, res, next) {
     const id = req.params.userId;
-    var queryRef = usersRef.where('userId', '==', id);
-    queryRef.get()
-        .then(doc => {
-            const user = getUser(id, doc);
-            if (user == null) {
+    usersRef.doc(id).get()
+        .then( doc => {
+            if (!doc.exists) {
                 res.status(200).json({
                     message: 'No users with such id'
                 });
@@ -135,7 +115,7 @@ router.get('/user/:userId', function(req, res, next) {
 
             res.status(200).json({
                 code: "OK",
-                user: user
+                user: doc.data()
             });
         })
         .catch( err => {
@@ -145,14 +125,5 @@ router.get('/user/:userId', function(req, res, next) {
             console.log(err);
         })
 });
-
-function getUser(id, doc) {
-    const users = doc.docs.map(function (user) { return user.data() });
-    if (!users.empty) {
-        return users[0]
-    } else {
-        return null
-    }
-}
 
 module.exports = router;
