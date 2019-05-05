@@ -7,6 +7,12 @@ var logger = require('morgan');
 const schema = require('./data/schema');
 const graphQL = require('express-graphql');
 
+const firebaseAdmin = require('firebase-admin');
+const firebaseServiceAccount = require('./university-26e9c-firebase-adminsdk-yufum-be1090d3a3');
+firebaseAdmin.initializeApp({
+  credential: firebaseAdmin.credential.cert(firebaseServiceAccount)
+});
+
 var app = express();
 
 // view engine setup
@@ -21,11 +27,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
-const productRoutes = require('./routes/products');
+const ordersRoutes = require('./routes/orders');
 
 app.use('/', indexRouter);
-app.use('/v1/users', usersRouter);
-app.use('/products', productRoutes);
+app.use('/api/v1/users', usersRouter);
+app.use('/api/v1/orders', ordersRoutes);
 app.use('/graphql', graphQL({ schema:schema, pretty:true }));
 
 // catch 404 and forward to error handler
