@@ -5,10 +5,43 @@ const firebaseAdmin = require('firebase-admin');
 const firestoreDB = firebaseAdmin.firestore();
 const ordersRef = firestoreDB.collection('orders');
 
+var multer  = require('multer');
+var storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, './public/images');
+    },
+    filename: (req, file, cb) => {
+        console.log(file);
+        var filetype = '';
+        if(file.mimetype === 'image/gif') {
+            filetype = 'gif';
+        }
+        if(file.mimetype === 'image/png') {
+            filetype = 'png';
+        }
+        if(file.mimetype === 'image/jpeg') {
+            filetype = 'jpg';
+        }
+        cb(null, 'image-' + Date.now() + '.' + filetype);
+    }
+});
+var upload = multer({storage: storage});
+
+http://localhost:3000/api/v1/orders/uploadImage
+
+router.post('/uploadImage',upload.single('image'),function(req, res, next) {
+    console.log(req.file);
+    if(!req.file) {
+        res.status(500);
+        return next(err);
+    }
+    res.json({ imageUrl: 'localhost:3000/images/' + req.file.filename });
+});
+
 // http://localhost:3000/api/v1/orders/add
 // {
 //     "userId": "2fcccd10-6e54-11e9-8582-4150f32892d0"
-//     "photoURL": "www.google.com",
+//     "photoURL": "localhost:3000/images/image-1557068309679.jpg",
 //     "description": "Описание"
 // }
 router.post('/add', function(req, res, next) {
