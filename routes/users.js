@@ -9,7 +9,7 @@ admin.initializeApp({
 var firestoreDB = admin.firestore();
 var usersRef = firestoreDB.collection('users');
 
-//http://localhost:3000/users/all
+//http://localhost:3000/v1/users/all
 router.get('/all', (req, res, next) => {
   usersRef.get()
       .then(doc => {
@@ -35,8 +35,8 @@ router.get('/all', (req, res, next) => {
       });
 });
 
-// http://localhost:3000/users/first
-router.get('/:userId', (req, res, next) => {
+// http://localhost:3000/v1/users/user/0e34ef60-6e50-11e9-a578-89b89011cd2f
+router.get('/user/:userId', (req, res, next) => {
     const id = req.params.userId;
     var queryRef = usersRef.where('userId', '==', id);
     queryRef.get()
@@ -63,7 +63,7 @@ router.get('/:userId', (req, res, next) => {
         })
 });
 
-// http://localhost:3000/users/add
+// http://localhost:3000/v1/users/add
 // {
 //     "firstName": "Andrey",
 //     "lastName": "Chernenko",
@@ -114,6 +114,40 @@ router.post('/add', (req, res, next) => {
         });
         console.log(err);
     })
+});
+
+router.post('/remove/:userId', (req, res, next) => {
+    const id = req.params.userId;
+    var queryRef = usersRef.where('userId', '==', id);
+    queryRef.get()
+        .then(doc => {
+            if (doc.empty) {
+                res.status(200).json({
+                    message: 'User does not exist'
+                });
+                return;
+            }
+
+            usersRef.doc(id).delete()
+                .then(doc => {
+                    if (doc.empty) {
+                        res.status(200).json({
+                            message: 'User not added'
+                        });
+                        return;
+                    }
+
+                    res.status(200).json({
+                        message: 'User removed'
+                    })
+                })
+        })
+        .catch( err => {
+            res.status(500).json({
+                message: 'User remove error'
+            });
+            console.log(err);
+        })
 });
 
 module.exports = router;

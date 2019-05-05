@@ -4,29 +4,8 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-
-const productRoutes = require('./routes/products');
 const schema = require('./data/schema');
 const graphQL = require('express-graphql');
-
-/////// firestote
-// const admin = require('firebase-admin');
-// var serviceAccount = require('./university-26e9c-firebase-adminsdk-yufum-be1090d3a3');
-// admin.initializeApp({
-//   credential: admin.credential.cert(serviceAccount)
-// });
-// var db = admin.firestore();
-//
-// var docRef = db.collection('users').doc('third');
-//
-// var setAda = docRef.set({
-//   first: 'Ada',
-//   last: 'Third',
-//   born: 1876
-// });
-/////////
 
 var app = express();
 
@@ -40,8 +19,12 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+const indexRouter = require('./routes/index');
+const usersRouter = require('./routes/users');
+const productRoutes = require('./routes/products');
+
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/v1/users', usersRouter);
 app.use('/products', productRoutes);
 app.use('/graphql', graphQL({ schema:schema, pretty:true }));
 
