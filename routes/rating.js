@@ -15,12 +15,12 @@ router.post('/like', function(req, res, next) {
     const orderId = req.body.orderId;
 
     ratingRef.get(orderId)
-        .then(doc => {
+        .then(function () {
             const likesRef = ratingRef.doc(orderId).collection('likes').doc('desc');
             const dislikesRef = ratingRef.doc(orderId).collection('dislikes').doc('desc');
             likesRef.get()
-                .then( doc => {
-                    const likesObj = JSON.parse(JSON.stringify(doc.data()));
+                .then( snapshot => {
+                    const likesObj = JSON.parse(JSON.stringify(snapshot.data()));
 
                     dislikesRef.get().then(doc => {
                         const dislikesObj = JSON.parse(JSON.stringify(doc.data()));
@@ -45,12 +45,14 @@ router.post('/like', function(req, res, next) {
                     }
 
                     res.status(200).json({
-                        code: "OK"
+                        code: "OK",
+                        message: 'Like accepted'
                     })
                 });
             })
             .catch( err => {
                 res.status(500).json({
+                    code: "ERR",
                     message: 'Set like error'
                 });
                 console.log(err);
@@ -67,12 +69,12 @@ router.post('/dislike', function(req, res, next) {
     const orderId = req.body.orderId;
 
     ratingRef.get(orderId)
-        .then(doc => {
+        .then(function () {
             const likesRef = ratingRef.doc(orderId).collection('likes').doc('desc');
             const dislikesRef = ratingRef.doc(orderId).collection('dislikes').doc('desc');
             dislikesRef.get()
-                .then( doc => {
-                    const dislikesObj = JSON.parse(JSON.stringify(doc.data()));
+                .then( snapshot => {
+                    const dislikesObj = JSON.parse(JSON.stringify(snapshot.data()));
 
                     likesRef.get().then(doc => {
                         const likesObj = JSON.parse(JSON.stringify(doc.data()));
@@ -97,13 +99,15 @@ router.post('/dislike', function(req, res, next) {
                     }
 
                     res.status(200).json({
-                        code: "OK"
+                        code: "OK",
+                        message: 'Disike accepted'
                     })
                 });
         })
         .catch( err => {
             res.status(500).json({
-                message: 'Set like error'
+                code: "ERR",
+                message: 'Set dislike error'
             });
             console.log(err);
         });

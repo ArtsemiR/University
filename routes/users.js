@@ -5,7 +5,7 @@ const firebaseAdmin = require('firebase-admin');
 const firestoreDB = firebaseAdmin.firestore();
 const usersRef = firestoreDB.collection('users');
 
-// http://localhost:3000/api/v1/orders/add
+// http://localhost:3000/api/v1/users/add
 // {
 //     "firstName": "Andrey",
 //     "lastName": "Chernenko",
@@ -38,20 +38,15 @@ router.post('/add', function(req, res, next) {
         phone: req.body.phone,
         userRole: req.body.userRole
     })
-        .then(doc => {
-            if (doc.empty) {
-                res.status(200).json({
-                    message: 'User not added'
-                });
-                return;
-            }
-
+        .then(function() {
             res.status(200).json({
-                code: "OK"
+                code: "OK",
+                message: 'User added successfully'
             });
         })
         .catch( err => {
             res.status(500).json({
+                code: "ERR",
                 message: 'Create user error'
             });
             console.log(err);
@@ -62,13 +57,15 @@ router.post('/add', function(req, res, next) {
 router.post('/remove/:userId', function(req, res, next) {
     const id = req.params.userId;
     usersRef.doc(id).delete()
-        .then(doc => {
+        .then(
             res.status(200).json({
-                code: "OK"
+                code: "OK",
+                message: 'User deleted'
             })
-        })
+        )
         .catch( err => {
             res.status(500).json({
+                code: "ERR",
                 message: 'User remove error'
             });
             console.log(err);
@@ -78,9 +75,11 @@ router.post('/remove/:userId', function(req, res, next) {
 //http://localhost:3000/api/v1/users/all
 router.get('/all', function(req, res, next) {
   usersRef.get()
-      .then(doc => {
-        if (doc.empty) {
+      .orderBy('lastName')
+      .then(snapshot => {
+        if (snapshot.empty) {
             res.status(200).json({
+                code: "OK",
                 message: 'no users'
             });
             return;
@@ -88,25 +87,88 @@ router.get('/all', function(req, res, next) {
 
         res.status(200).json({
             code: "OK",
-            users: doc.docs.map(function (user) {
+            users: snapshot.docs.map(function (user) {
               return user.data();
           })
         });
       })
       .catch(err => {
         res.status(500).json({
-          message: 'Error getting users'
+            code: "ERR",
+            message: 'Error getting users'
         });
         console.log(err);
       });
+});
+
+// http://localhost:3000/api/v1/users?page1=3&size=10
+router.get('/', function(req, res, next) {
+    const page = req.query.page;
+    const size = req.query.size;
+
+    usersRef.get()
+        .then(snapshot => {
+            if (snapshot.empty) {
+                res.status(200).json({
+                    code: "OK",
+                    message: 'no users'
+                });
+                return;
+            }
+
+            if (((page - 1) * size) > (snapshot.docs.length - 1)) {
+                res.status(200).json({
+                    code: "OK",
+                    message: 'users are over'
+                });
+                return
+            }
+
+            if ((page * size - 1) > (snapshot.docs.length - 1)) {
+                usersRef
+                    .orderBy('lastName')
+                    .startAt(snapshot.docs[(page - 1) * size])
+                    .endAt(snapshot.docs[snapshot.docs.length - 1])
+                    .get().then( doc => {
+                        res.status(200).json({
+                            code: "OK",
+                            users: doc.docs.map(function (user) {
+                                return user.data();
+                            })
+                        });
+                });
+                return
+            }
+
+            usersRef
+                .orderBy('lastName')
+                .startAt(snapshot.docs[(page - 1) * size])
+                .endAt(snapshot.docs[page * size - 1])
+                .get().then( doc => {
+                    res.status(200).json({
+                        code: "OK",
+                        users: doc.docs.map(function (user) {
+                            return user.data();
+                        })
+                    });
+                });
+
+        })
+        .catch(err => {
+            res.status(500).json({
+                code: "ERR",
+                message: 'Error getting users'
+            });
+            console.log(err);
+        });
 });
 
 // http://localhost:3000/api/v1/users/user/0e34ef60-6e50-11e9-a578-89b89011cd2f
 router.get('/user/:userId', function(req, res, next) {
     const id = req.params.userId;
     usersRef.doc(id).get()
-        .then( doc => {
-            if (!doc.exists) {
+        .then( snapshot => {
+            if (!snapshot.exists) {
                 res.status(200).json({
                     message: 'No users with such id'
                 });
@@ -115,11 +177,12 @@ router.get('/user/:userId', function(req, res, next) {
 
             res.status(200).json({
                 code: "OK",
-                user: doc.data()
+                user: snapshot.data()
             });
         })
         .catch( err => {
             res.status(500).json({
+                code: "ERR",
                 message: 'Error getting user by id'
             });
             console.log(err);

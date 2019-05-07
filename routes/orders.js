@@ -33,10 +33,19 @@ var upload = multer({storage: storage});
 router.post('/uploadImage',upload.single('image'),function(req, res, next) {
     console.log(req.file);
     if(!req.file) {
-        res.status(500);
+        res.status(500).json({
+            code: 'ERR',
+            message: 'Image load error',
+            imageURL: 'localhost:3000/images/' + req.file.filename }
+        );
         return next(err);
     }
-    res.json({ imageUrl: 'localhost:3000/images/' + req.file.filename });
+
+    res.status(200).json({
+        code: 'OK',
+        message: 'Image has loaded',
+        imageUrl: 'localhost:3000/images/' + req.file.filename}
+    );
 });
 
 // http://localhost:3000/api/v1/orders/add
@@ -63,21 +72,17 @@ router.post('/add', function(req, res, next) {
         photoURL: req.body.photoURL,
         description: req.body.description
     })
-        .then(doc => {
-            if (doc.empty) {
+        .then( function() {
+                createRating(orderId);
                 res.status(200).json({
-                    message: 'Order not created'
+                    code: "OK",
+                    message: 'Order created'
                 });
-                return;
             }
-
-            createRating(orderId);
-            res.status(200).json({
-                code: "OK"
-            });
-        })
+        )
         .catch( err => {
             res.status(500).json({
+                code: "ERR",
                 message: 'Order create error'
             });
             console.log(err);
@@ -101,15 +106,17 @@ function createRating(orderId) {
 router.post('/remove/:orderId', function(req, res, next) {
     const id = req.params.orderId;
     ordersRef.doc(id).delete()
-        .then(doc => {
+        .then(function () {
             ratingRef.doc(id).delete();
 
             res.status(200).json({
-                code: "OK"
+                code: "OK",
+                message: 'Order removed'
             })
         })
         .catch( err => {
             res.status(500).json({
+                code: "ERR",
                 message: 'Order remove error'
             });
             console.log(err);
@@ -119,9 +126,10 @@ router.post('/remove/:orderId', function(req, res, next) {
 //http://localhost:3000/api/v1/orders/all
 router.get('/all', function(req, res, next) {
     ordersRef.get()
-        .then(doc => {
-            if (doc.empty) {
+        .then(snapshot => {
+            if (snapshot.empty) {
                 res.status(200).json({
+                    code: "OK",
                     message: 'No orders'
                 });
                 return;
@@ -129,13 +137,15 @@ router.get('/all', function(req, res, next) {
 
             res.status(200).json({
                 code: "OK",
-                orders: doc.docs.map(function (order) {
+                message: null,
+                orders: snapshot.docs.map(function (order) {
                     return order.data();
                 })
             });
         })
         .catch(err => {
             res.status(500).json({
+                code: "ERR",
                 message: 'Error getting orders'
             });
             console.log(err);
@@ -147,9 +157,10 @@ router.get('/:userId', function(req, res, next) {
     const id = req.params.userId;
     var queryRef = ordersRef.where('userId', '==', id);
     queryRef.get()
-        .then(doc => {
-            if (doc.empty) {
+        .then(snapshot => {
+            if (snapshot.empty) {
                 res.status(200).json({
+                    code: "OK",
                     message: 'No orders with such user'
                 });
                 return;
@@ -157,11 +168,13 @@ router.get('/:userId', function(req, res, next) {
 
             res.status(200).json({
                 code: "OK",
-                orders: doc.docs.map(function (order) { return order.data() })
+                message: null,
+                orders: snapshot.docs.map(function (order) { return order.data() })
             });
         })
         .catch( err => {
             res.status(500).json({
+                code: "ERR",
                 message: 'Error getting order by id'
             });
             console.log(err);
@@ -172,9 +185,10 @@ router.get('/:userId', function(req, res, next) {
 router.get('/order/:orderId', function(req, res, next) {
     const id = req.params.orderId;
     ordersRef.doc('id').get()
-        .then(doc => {
-            if (!doc.exists) {
+        .then(snapshot => {
+            if (!snapshot.exists) {
                 res.status(200).json({
+                    code: "OK",
                     message: 'No orders with such id'
                 });
                 return;
@@ -182,11 +196,13 @@ router.get('/order/:orderId', function(req, res, next) {
 
             res.status(200).json({
                 code: "OK",
-                order: doc.data()
+                message: null,
+                order: snapshot.data()
             });
         })
         .catch( err => {
             res.status(500).json({
+                code: "ERR",
                 message: 'Error getting order by id'
             });
             console.log(err);
