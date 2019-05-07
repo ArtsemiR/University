@@ -5,7 +5,7 @@ const firebaseAdmin = require('firebase-admin');
 const firestoreDB = firebaseAdmin.firestore();
 const usersRef = firestoreDB.collection('users');
 
-// http://localhost:3000/api/v1/users/add
+// api/v1/users/add
 // {
 //     "firstName": "Andrey",
 //     "lastName": "Chernenko",
@@ -53,9 +53,9 @@ router.post('/add', function(req, res, next) {
         })
 });
 
-// http://localhost:3000/api/v1/users/remove/id
-router.post('/remove/:userId', function(req, res, next) {
-    const id = req.params.userId;
+// api/v1/users/remove?userId=d86ad0a0-6f4b-11e9-89a3-4ff3fd2b60a3
+router.post('/remove', function(req, res, next) {
+    const id = req.query.userId;
     usersRef.doc(id).delete()
         .then(
             res.status(200).json({
@@ -72,7 +72,7 @@ router.post('/remove/:userId', function(req, res, next) {
         });
 });
 
-//http://localhost:3000/api/v1/users/all
+// api/v1/users/all
 router.get('/all', function(req, res, next) {
   usersRef.get()
       .orderBy('lastName')
@@ -101,7 +101,7 @@ router.get('/all', function(req, res, next) {
       });
 });
 
-// http://localhost:3000/api/v1/users?page1=3&size=10
+// api/v1/users?page1=3&size=10
 router.get('/', function(req, res, next) {
     const page = req.query.page;
     const size = req.query.size;
@@ -163,9 +163,9 @@ router.get('/', function(req, res, next) {
         });
 });
 
-// http://localhost:3000/api/v1/users/user/0e34ef60-6e50-11e9-a578-89b89011cd2f
-router.get('/user/:userId', function(req, res, next) {
-    const id = req.params.userId;
+// api/v1/users/user?userId=0e34ef60-6e50-11e9-a578-89b89011cd2f
+router.get('/user', function(req, res, next) {
+    const id = req.query.userId;
     usersRef.doc(id).get()
         .then( snapshot => {
             if (!snapshot.exists) {

@@ -4,7 +4,6 @@
     <list default="true" id="6f818933-b024-40bd-b42e-f9b0fc9c1197" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/orders.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/orders.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/rating.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/rating.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/users.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/users.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -21,26 +20,43 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="504">
+            <state relative-caret-position="630">
               <caret line="35" column="38" selection-start-line="35" selection-start-column="38" selection-end-line="35" selection-end-column="38" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/routes/users.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="810">
-              <caret line="45" column="10" lean-forward="true" selection-start-line="45" selection-start-column="10" selection-end-line="45" selection-end-column="10" />
+            <state relative-caret-position="216">
+              <caret line="72" column="3" selection-start-line="72" selection-start-column="3" selection-end-line="72" selection-end-column="3" />
+              <folding>
+                <element signature="e#524#1544#0" />
+                <element signature="e#1641#2042#0" />
+                <element signature="e#2143#2739#0" />
+                <element signature="e#2838#4704#0" />
+                <element signature="e#4841#5447#0" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/routes/orders.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="216">
-              <caret line="199" column="31" selection-start-line="199" selection-start-column="23" selection-end-line="199" selection-end-column="31" />
+            <state relative-caret-position="342">
+              <caret line="155" column="17" selection-start-line="155" selection-start-column="13" selection-end-line="155" selection-end-column="17" />
+              <folding>
+                <element signature="e#337#828#0" />
+                <element signature="e#999#1414#0" />
+                <element signature="e#1673#2600#0" />
+                <element signature="n#!!block;n#createRating#0" />
+                <element signature="e#2984#3444#0" />
+                <element signature="e#3534#4226#0" />
+                <element signature="e#4353#5117#0" />
+                <element signature="e#5256#5931#0" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -71,9 +87,9 @@
       <list>
         <option value="$PROJECT_DIR$/routes/products.js" />
         <option value="$PROJECT_DIR$/app.js" />
+        <option value="$PROJECT_DIR$/routes/rating.js" />
         <option value="$PROJECT_DIR$/routes/users.js" />
         <option value="$PROJECT_DIR$/routes/orders.js" />
-        <option value="$PROJECT_DIR$/routes/rating.js" />
       </list>
     </option>
   </component>
@@ -88,7 +104,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -110,6 +125,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -181,7 +197,8 @@
       <workItem from="1557223041687" duration="1796000" />
       <workItem from="1557224875015" duration="321000" />
       <workItem from="1557225199856" duration="1473000" />
-      <workItem from="1557226722960" duration="1413000" />
+      <workItem from="1557226722960" duration="1976000" />
+      <workItem from="1557231127499" duration="607000" />
     </task>
     <task id="LOCAL-00001" summary="users">
       <created>1553616082874</created>
@@ -194,7 +211,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="44831000" />
+    <option name="totallyTimeSpent" value="46001000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1680" height="1027" extended-state="6" />
@@ -281,10 +298,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/routes/orders.js">
+    <entry file="file://$PROJECT_DIR$/app.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="216">
-          <caret line="199" column="31" selection-start-line="199" selection-start-column="23" selection-end-line="199" selection-end-column="31" />
+        <state relative-caret-position="630">
+          <caret line="35" column="38" selection-start-line="35" selection-start-column="38" selection-end-line="35" selection-end-column="38" />
         </state>
       </provider>
     </entry>
@@ -295,17 +312,34 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app.js">
+    <entry file="file://$PROJECT_DIR$/routes/users.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="504">
-          <caret line="35" column="38" selection-start-line="35" selection-start-column="38" selection-end-line="35" selection-end-column="38" />
+        <state relative-caret-position="216">
+          <caret line="72" column="3" selection-start-line="72" selection-start-column="3" selection-end-line="72" selection-end-column="3" />
+          <folding>
+            <element signature="e#524#1544#0" />
+            <element signature="e#1641#2042#0" />
+            <element signature="e#2143#2739#0" />
+            <element signature="e#2838#4704#0" />
+            <element signature="e#4841#5447#0" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/routes/users.js">
+    <entry file="file://$PROJECT_DIR$/routes/orders.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="810">
-          <caret line="45" column="10" lean-forward="true" selection-start-line="45" selection-start-column="10" selection-end-line="45" selection-end-column="10" />
+        <state relative-caret-position="342">
+          <caret line="155" column="17" selection-start-line="155" selection-start-column="13" selection-end-line="155" selection-end-column="17" />
+          <folding>
+            <element signature="e#337#828#0" />
+            <element signature="e#999#1414#0" />
+            <element signature="e#1673#2600#0" />
+            <element signature="n#!!block;n#createRating#0" />
+            <element signature="e#2984#3444#0" />
+            <element signature="e#3534#4226#0" />
+            <element signature="e#4353#5117#0" />
+            <element signature="e#5256#5931#0" />
+          </folding>
         </state>
       </provider>
     </entry>

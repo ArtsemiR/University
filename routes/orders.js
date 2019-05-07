@@ -28,8 +28,7 @@ var storage = multer.diskStorage({
 });
 var upload = multer({storage: storage});
 
-//http://localhost:3000/api/v1/orders/uploadImage
-
+// api/v1/orders/uploadImage
 router.post('/uploadImage',upload.single('image'),function(req, res, next) {
     console.log(req.file);
     if(!req.file) {
@@ -48,7 +47,7 @@ router.post('/uploadImage',upload.single('image'),function(req, res, next) {
     );
 });
 
-// http://localhost:3000/api/v1/orders/add
+// api/v1/orders/add
 // {
 //     "userId": "2fcccd10-6e54-11e9-8582-4150f32892d0"
 //     "photoURL": "localhost:3000/images/image-1557068309679.jpg",
@@ -103,8 +102,9 @@ function createRating(orderId) {
     });
 }
 
-router.post('/remove/:orderId', function(req, res, next) {
-    const id = req.params.orderId;
+// api/v1/orders/uploadImage
+router.post('/remove', function(req, res, next) {
+    const id = req.query.orderId;
     ordersRef.doc(id).delete()
         .then(function () {
             ratingRef.doc(id).delete();
@@ -123,7 +123,7 @@ router.post('/remove/:orderId', function(req, res, next) {
         })
 });
 
-//http://localhost:3000/api/v1/orders/all
+// api/v1/orders/all
 router.get('/all', function(req, res, next) {
     ordersRef.get()
         .then(snapshot => {
@@ -152,9 +152,9 @@ router.get('/all', function(req, res, next) {
         });
 });
 
-//http://localhost:3000/api/v1/orders/2fcccd10-6e54-11e9-8582-4150f32892d0
-router.get('/:userId', function(req, res, next) {
-    const id = req.params.userId;
+//http://localhost:3000/api/v1/orders/user?userId=2fcccd10-6e54-11e9-8582-4150f32892d0
+router.get('/user', function(req, res, next) {
+    const id = req.query.userId;
     var queryRef = ordersRef.where('userId', '==', id);
     queryRef.get()
         .then(snapshot => {
@@ -181,9 +181,9 @@ router.get('/:userId', function(req, res, next) {
         })
 });
 
-// http://localhost:3000/api/v1/users/user/0e34ef60-6e50-11e9-a578-89b89011cd2f
-router.get('/order/:orderId', function(req, res, next) {
-    const id = req.params.orderId;
+// api/v1/orders/order?orderId=0e34ef60-6e50-11e9-a578-89b89011cd2f
+router.get('/order', function(req, res, next) {
+    const id = req.query.orderId;
     ordersRef.doc('id').get()
         .then(snapshot => {
             if (!snapshot.exists) {
