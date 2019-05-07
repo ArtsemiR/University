@@ -152,6 +152,70 @@ router.get('/all', function(req, res, next) {
         });
 });
 
+// api/v1/orders?page1=3&size=10
+router.get('/', function(req, res, next) {
+    const page = Number(req.query.page);
+    const size = Number(req.query.size);
+
+    ordersRef
+        .orderBy('orderDate')
+        .get()
+        .then(snapshot => {
+            if (snapshot.empty) {
+                res.status(200).json({
+                    code: "OK",
+                    message: 'No orders'
+                });
+                return;
+            }
+
+            if (((page - 1) * size) > (snapshot.docs.length - 1)) {
+                res.status(200).json({
+                    code: "OK",
+                    message: 'Orders are over'
+                });
+                return
+            }
+
+            if ((page * size - 1) > (snapshot.docs.length - 1)) {
+                ordersRef
+                    .orderBy('orderDate')
+                    .startAt(snapshot.docs[(page - 1) * size])
+                    .limit(size)
+                    .get().then( doc => {
+                    res.status(200).json({
+                        code: "OK",
+                        orders: doc.docs.map(function (user) {
+                            return user.data();
+                        })
+                    });
+                });
+                return
+            }
+
+            ordersRef
+                .orderBy('orderDate')
+                .startAt(snapshot.docs[(page - 1) * size])
+                .limit(size)
+                .get().then( doc => {
+                res.status(200).json({
+                    code: "OK",
+                    orders: doc.docs.map(function (user) {
+                        return user.data();
+                    })
+                });
+            });
+
+        })
+        .catch(err => {
+            res.status(500).json({
+                code: "ERR",
+                message: 'Error getting orders'
+            });
+            console.log(err);
+        });
+});
+
 //http://localhost:3000/api/v1/orders/user?userId=2fcccd10-6e54-11e9-8582-4150f32892d0
 router.get('/user', function(req, res, next) {
     const id = req.query.userId;

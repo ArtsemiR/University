@@ -101,17 +101,19 @@ router.get('/all', function(req, res, next) {
       });
 });
 
-// api/v1/users?page1=3&size=10
+// api/v1/users?page=1&size=4
 router.get('/', function(req, res, next) {
-    const page = req.query.page;
-    const size = req.query.size;
+    const page = Number(req.query.page);
+    const size = Number(req.query.size);
 
-    usersRef.get()
+    usersRef
+        .orderBy('lastName')
+        .get()
         .then(snapshot => {
             if (snapshot.empty) {
                 res.status(200).json({
                     code: "OK",
-                    message: 'no users'
+                    message: 'No users'
                 });
                 return;
             }
@@ -119,7 +121,7 @@ router.get('/', function(req, res, next) {
             if (((page - 1) * size) > (snapshot.docs.length - 1)) {
                 res.status(200).json({
                     code: "OK",
-                    message: 'users are over'
+                    message: 'Users are over'
                 });
                 return
             }
@@ -128,7 +130,7 @@ router.get('/', function(req, res, next) {
                 usersRef
                     .orderBy('lastName')
                     .startAt(snapshot.docs[(page - 1) * size])
-                    .endAt(snapshot.docs[snapshot.docs.length - 1])
+                    .limit(size)
                     .get().then( doc => {
                         res.status(200).json({
                             code: "OK",
@@ -143,8 +145,10 @@ router.get('/', function(req, res, next) {
             usersRef
                 .orderBy('lastName')
                 .startAt(snapshot.docs[(page - 1) * size])
-                .endAt(snapshot.docs[page * size - 1])
+                .limit(size)
                 .get().then( doc => {
+                console.log(2);
+                console.log((page - 1) * size);
                     res.status(200).json({
                         code: "OK",
                         users: doc.docs.map(function (user) {

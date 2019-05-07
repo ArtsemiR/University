@@ -29,14 +29,10 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/routes/users.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="216">
-              <caret line="72" column="3" selection-start-line="72" selection-start-column="3" selection-end-line="72" selection-end-column="3" />
+            <state relative-caret-position="492">
+              <caret line="133" column="41" selection-start-line="133" selection-start-column="41" selection-end-line="133" selection-end-column="41" />
               <folding>
-                <element signature="e#524#1544#0" />
                 <element signature="e#1641#2042#0" />
-                <element signature="e#2143#2739#0" />
-                <element signature="e#2838#4704#0" />
-                <element signature="e#4841#5447#0" />
               </folding>
             </state>
           </provider>
@@ -45,17 +41,11 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/routes/orders.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="342">
-              <caret line="155" column="17" selection-start-line="155" selection-start-column="13" selection-end-line="155" selection-end-column="17" />
+            <state relative-caret-position="-51">
+              <caret line="161" column="13" selection-start-line="161" selection-start-column="13" selection-end-line="161" selection-end-column="13" />
               <folding>
                 <element signature="e#337#828#0" />
-                <element signature="e#999#1414#0" />
-                <element signature="e#1673#2600#0" />
                 <element signature="n#!!block;n#createRating#0" />
-                <element signature="e#2984#3444#0" />
-                <element signature="e#3534#4226#0" />
-                <element signature="e#4353#5117#0" />
-                <element signature="e#5256#5931#0" />
               </folding>
             </state>
           </provider>
@@ -64,8 +54,13 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/routes/rating.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1836">
-              <caret line="102" column="37" selection-start-line="102" selection-start-column="37" selection-end-line="102" selection-end-column="37" />
+            <state relative-caret-position="108">
+              <caret line="6" selection-start-line="6" selection-end-line="6" />
+              <folding>
+                <element signature="e#433#2260#0" />
+                <element signature="e#2484#4293#0" />
+                <element signature="e#4333#4553#0" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -198,7 +193,10 @@
       <workItem from="1557224875015" duration="321000" />
       <workItem from="1557225199856" duration="1473000" />
       <workItem from="1557226722960" duration="1976000" />
-      <workItem from="1557231127499" duration="607000" />
+      <workItem from="1557231127499" duration="1790000" />
+      <workItem from="1557232948431" duration="1809000" />
+      <workItem from="1557234810472" duration="1787000" />
+      <workItem from="1557236622308" duration="1678000" />
     </task>
     <task id="LOCAL-00001" summary="users">
       <created>1553616082874</created>
@@ -211,18 +209,17 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="46001000" />
+    <option name="totallyTimeSpent" value="52458000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1680" height="1027" extended-state="6" />
-    <editor active="true" />
+    <frame x="0" y="24" width="1680" height="1027" extended-state="6" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.18444847" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.18444847" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.36898395" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.1764706" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -291,13 +288,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/node_modules/firebase/index.d.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="6539" column="4" selection-start-line="6539" selection-start-column="4" selection-end-line="6539" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="630">
@@ -307,38 +297,40 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/routes/rating.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1836">
-          <caret line="102" column="37" selection-start-line="102" selection-start-column="37" selection-end-line="102" selection-end-column="37" />
+        <state relative-caret-position="108">
+          <caret line="6" selection-start-line="6" selection-end-line="6" />
+          <folding>
+            <element signature="e#433#2260#0" />
+            <element signature="e#2484#4293#0" />
+            <element signature="e#4333#4553#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/node_modules/firebase/index.d.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="247">
+          <caret line="6920" column="4" selection-start-line="6920" selection-start-column="4" selection-end-line="6920" selection-end-column="4" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/routes/users.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="216">
-          <caret line="72" column="3" selection-start-line="72" selection-start-column="3" selection-end-line="72" selection-end-column="3" />
+        <state relative-caret-position="492">
+          <caret line="133" column="41" selection-start-line="133" selection-start-column="41" selection-end-line="133" selection-end-column="41" />
           <folding>
-            <element signature="e#524#1544#0" />
             <element signature="e#1641#2042#0" />
-            <element signature="e#2143#2739#0" />
-            <element signature="e#2838#4704#0" />
-            <element signature="e#4841#5447#0" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/routes/orders.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="342">
-          <caret line="155" column="17" selection-start-line="155" selection-start-column="13" selection-end-line="155" selection-end-column="17" />
+        <state relative-caret-position="-51">
+          <caret line="161" column="13" selection-start-line="161" selection-start-column="13" selection-end-line="161" selection-end-column="13" />
           <folding>
             <element signature="e#337#828#0" />
-            <element signature="e#999#1414#0" />
-            <element signature="e#1673#2600#0" />
             <element signature="n#!!block;n#createRating#0" />
-            <element signature="e#2984#3444#0" />
-            <element signature="e#3534#4226#0" />
-            <element signature="e#4353#5117#0" />
-            <element signature="e#5256#5931#0" />
           </folding>
         </state>
       </provider>
