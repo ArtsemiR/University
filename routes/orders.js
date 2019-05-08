@@ -6,8 +6,6 @@ const firestoreDB = firebaseAdmin.firestore();
 const ordersRef = firestoreDB.collection('orders');
 const ratingRef = firestoreDB.collection('rating');
 
-// const gcloud = require('gcloud');
-
 var multer  = require('multer');
 var storage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -30,23 +28,38 @@ var storage = multer.diskStorage({
 });
 var upload = multer({storage: storage});
 
+const fbStorageBucket = firebaseAdmin.storage().bucket();
+
 // api/v1/orders/uploadImage
 router.post('/uploadImage',upload.single('image'),function(req, res, next) {
     console.log(req.file);
     if(!req.file) {
         res.status(500).json({
             code: 'ERR',
-            message: 'Image load error',
-            imageURL: 'localhost:3000/images/' + req.file.filename }
+            message: 'Image load error'}
         );
         return next(err);
     }
-
-    res.status(200).json({
-        code: 'OK',
-        message: 'Image has loaded',
-        imageUrl: 'localhost:3000/images/' + req.file.filename}
-    );
+    //`https://firebasestorage.googleapis.com/v0/b/university-26e9c.appspot.com/o/orders%2Fimage-1557328694459.png?alt=media`
+    fbStorageBucket.upload(req.file.path, {
+        destination: `orders/${req.file.filename}`,
+        public:true,
+        metadata: {
+            contentType: req.file.mimeType,
+            cacheControl: "public, max-age=300"}})
+        .then(
+            res.status(200).json({
+                code: 'OK',
+                message: 'Image has loaded',
+                imageURL: `https://firebasestorage.googleapis.com/v0/b/${fbStorageBucket.name}/o/orders%2F${(req.file.filename)}?alt=media`
+                // imageURL: `http://storage.googleapis.com/${fbStorageBucket.name}/${(req.file.filename)}`}
+            })
+        ).catch(
+            res.status(500).json({
+                code: 'ERR',
+                message: 'Image load error'}
+            )
+        );
 });
 
 // api/v1/orders/add
@@ -106,6 +119,7 @@ function createRating(orderId) {
 
 // api/v1/orders/uploadImage
 router.post('/remove', function(req, res, next) {
+
     const id = req.query.orderId;
     ordersRef.doc(id).delete()
         .then(function () {

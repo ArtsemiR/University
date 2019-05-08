@@ -10,7 +10,8 @@ const graphQL = require('express-graphql');
 const firebaseAdmin = require('firebase-admin');
 const firebaseServiceAccount = require('./university-26e9c-firebase-adminsdk-yufum-be1090d3a3');
 firebaseAdmin.initializeApp({
-  credential: firebaseAdmin.credential.cert(firebaseServiceAccount)
+  credential: firebaseAdmin.credential.cert(firebaseServiceAccount),
+  storageBucket: 'gs://university-26e9c.appspot.com'
 });
 
 var app = express();
