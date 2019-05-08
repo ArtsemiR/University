@@ -6,6 +6,8 @@ const firestoreDB = firebaseAdmin.firestore();
 const ordersRef = firestoreDB.collection('orders');
 const ratingRef = firestoreDB.collection('rating');
 
+// const gcloud = require('gcloud');
+
 var multer  = require('multer');
 var storage = multer.diskStorage({
     destination: (req, file, cb) => {
