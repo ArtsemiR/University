@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const firebaseAdmin = require('firebase-admin');
+const fs = require('fs');
 
 const firestoreDB = firebaseAdmin.firestore();
 const ordersRef = firestoreDB.collection('orders');
@@ -40,26 +41,30 @@ router.post('/uploadImage',upload.single('image'),function(req, res, next) {
         );
         return next(err);
     }
-    //`https://firebasestorage.googleapis.com/v0/b/university-26e9c.appspot.com/o/orders%2Fimage-1557328694459.png?alt=media`
+    `https://firebasestorage.googleapis.com/v0/b/university-26e9c.appspot.com/o/orders%2Fimage-1557328694459.png?alt=media`
     fbStorageBucket.upload(req.file.path, {
         destination: `orders/${req.file.filename}`,
-        public:true,
+        gzip: true,
         metadata: {
-            contentType: req.file.mimeType,
-            cacheControl: "public, max-age=300"}})
-        .then(
+        cacheControl: 'public, max-age=31536000',
+    }})
+        .then(uploadResponse => {
             res.status(200).json({
                 code: 'OK',
                 message: 'Image has loaded',
-                imageURL: `https://firebasestorage.googleapis.com/v0/b/${fbStorageBucket.name}/o/orders%2F${(req.file.filename)}?alt=media`
-                // imageURL: `http://storage.googleapis.com/${fbStorageBucket.name}/${(req.file.filename)}`}
-            })
-        ).catch(
-            res.status(500).json({
-                code: 'ERR',
-                message: 'Image load error'}
-            )
-        );
+                imageURL: uploadResponse[1].mediaLink
+            });
+            fs.unlink(req.file.path,function(err) {
+                if(err && err.code === 'ENOENT') {
+                    // file doens't exist
+                    console.info("File doesn't exist, won't remove it.");
+                } else if (err) {
+                    // other errors, e.g. maybe we don't have enough permission
+                    console.error("Error occurred while trying to remove file");
+                } else {
+                    console.info(`removed`);
+                }})
+        })
 });
 
 // api/v1/orders/add
