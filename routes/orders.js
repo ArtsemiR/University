@@ -6,9 +6,10 @@ const fs = require('fs');
 const firestoreDB = firebaseAdmin.firestore();
 const ordersRef = firestoreDB.collection('orders');
 const ratingRef = firestoreDB.collection('rating');
+const commentsRef = firestoreDB.collection('comments');
 
-var multer  = require('multer');
-var storage = multer.diskStorage({
+const multer  = require('multer');
+const storage = multer.diskStorage({
     destination: (req, file, cb) => {
         cb(null, './public/images');
     },
@@ -27,8 +28,7 @@ var storage = multer.diskStorage({
         cb(null, 'image-' + Date.now() + '.' + filetype);
     }
 });
-var upload = multer({storage: storage});
-
+const upload = multer({storage: storage});
 const fbStorageBucket = firebaseAdmin.storage().bucket();
 
 // api/v1/orders/uploadImage
@@ -69,8 +69,8 @@ router.post('/uploadImage',upload.single('image'),function(req, res, next) {
 
 // api/v1/orders/add
 // {
-//     "userId": "2fcccd10-6e54-11e9-8582-4150f32892d0"
-//     "photoURL": "localhost:3000/images/image-1557068309679.jpg",
+//     "userId": "0bcc2550-6f17-11e9-8167-11d0fdd90876"
+//     "photoURL": "https://www.googleapis.com/download/storage/v1/b/university-26e9c.appspot.com/o/orders%2Fimage-1557578581465.png?generation=1557578603965038&alt=media"",
 //     "description": "Описание"
 // }
 router.post('/add', function(req, res, next) {
@@ -93,6 +93,7 @@ router.post('/add', function(req, res, next) {
     })
         .then( function() {
                 createRating(orderId);
+                createDiscusstion(orderId);
                 res.status(200).json({
                     code: "OK",
                     message: 'Order created'
@@ -108,28 +109,13 @@ router.post('/add', function(req, res, next) {
         })
 });
 
-function createRating(orderId) {
-    ratingRef.doc(orderId).set({
-        orderId: orderId
-    });
-    ratingRef.doc(orderId).collection('likes').doc('desc').set({
-        users: [],
-        count: 0
-    });
-    ratingRef.doc(orderId).collection('dislikes').doc('desc').set({
-        users: [],
-        count: 0
-    });
-}
-
 // api/v1/orders/uploadImage
 router.post('/remove', function(req, res, next) {
 
     const id = req.query.orderId;
     ordersRef.doc(id).delete()
         .then(function () {
-            ratingRef.doc(id).delete();
-
+            removeInnerCollections(id);
             res.status(200).json({
                 code: "OK",
                 message: 'Order removed'
@@ -237,7 +223,7 @@ router.get('/', function(req, res, next) {
         });
 });
 
-//http://localhost:3000/api/v1/orders/user?userId=2fcccd10-6e54-11e9-8582-4150f32892d0
+//http://localhost:3000/api/v1/orders/user?userId=0bcc2550-6f17-11e9-8167-11d0fdd90876
 router.get('/user', function(req, res, next) {
     const id = req.query.userId;
     var queryRef = ordersRef.where('userId', '==', id);
@@ -293,5 +279,75 @@ router.get('/order', function(req, res, next) {
             console.log(err);
         })
 });
+
+function createRating(orderId) {
+    ratingRef.doc(orderId).set({
+        orderId: orderId
+    });
+    ratingRef.doc(orderId).collection('likes').doc('desc').set({
+        users: [],
+        count: 0
+    });
+    ratingRef.doc(orderId).collection('dislikes').doc('desc').set({
+        users: [],
+        count: 0
+    });
+}
+
+function createDiscusstion(orderId  ) {
+    commentsRef.doc(orderId).set({
+        orderId: orderId,
+        count: 0
+    });
+}
+
+function removeInnerCollections(id) {
+    ratingRef.doc(id).collection('likes').doc('desc').delete();
+    ratingRef.doc(id).collection('dislikes').doc('desc').delete();
+    ratingRef.doc(id).delete();
+
+    deleteCollection(firestoreDB, commentsRef.doc(id).collection('messages'), 50);
+    commentsRef.doc(id).delete();
+}
+
+function deleteCollection(db, collectionRef, batchSize) {
+    var query = collectionRef.orderBy('userId').limit(batchSize);
+
+    return new Promise((resolve, reject) => {
+        deleteQueryBatch(db, query, batchSize, resolve, reject);
+    });
+}
+
+function deleteQueryBatch(db, query, batchSize, resolve, reject) {
+    query.get()
+        .then((snapshot) => {
+            // When there are no documents left, we are done
+            if (snapshot.size == 0) {
+                return 0;
+            }
+
+            // Delete documents in a batch
+            var batch = db.batch();
+            snapshot.docs.forEach((doc) => {
+                batch.delete(doc.ref);
+            });
+
+            return batch.commit().then(() => {
+                return snapshot.size;
+            });
+        }).then((numDeleted) => {
+        if (numDeleted === 0) {
+            resolve();
+            return;
+        }
+
+        // Recurse on the next process tick, to avoid
+        // exploding the stack.
+        process.nextTick(() => {
+            deleteQueryBatch(db, query, batchSize, resolve, reject);
+        });
+    })
+        .catch(reject);
+}
 
 module.exports = router;

@@ -30,11 +30,13 @@ const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const ordersRoutes = require('./routes/orders');
 const ratingRoutes = require('./routes/rating');
+const commentsRoutes = require('./routes/comments');
 
 app.use('/', indexRouter);
 app.use('/api/v1/users', usersRouter);
 app.use('/api/v1/orders', ordersRoutes);
 app.use('/api/v1/rating', ratingRoutes);
+app.use('/api/v1/comments', commentsRoutes);
 app.use('/graphql', graphQL({ schema:schema, pretty:true }));
 
 // catch 404 and forward to error handler
