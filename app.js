@@ -7,12 +7,34 @@ var logger = require('morgan');
 const schema = require('./data/schema');
 const graphQL = require('express-graphql');
 
+const firebase = require('firebase');
+firebase.initializeApp({
+  apiKey: "AIzaSyDyr3_khOPO9azovFoWZuomKOw8MN9s0s0",
+  authDomain: "university-26e9c.firebaseapp.com",
+  databaseURL: "https://university-26e9c.firebaseio.com",
+  projectId: "university-26e9c",
+  storageBucket: "university-26e9c.appspot.com",
+  messagingSenderId: "965388838124",
+  appId: "1:965388838124:web:7fe5d6f0b377fe1a"
+});
+
 const firebaseAdmin = require('firebase-admin');
 const firebaseServiceAccount = require('./university-26e9c-firebase-adminsdk-yufum-be1090d3a3');
 firebaseAdmin.initializeApp({
   credential: firebaseAdmin.credential.cert(firebaseServiceAccount),
   storageBucket: 'gs://university-26e9c.appspot.com'
 });
+
+// firebase.auth().signInWithEmailAndPassword('1@gmail.com', 'password')
+//     .then(user=> {
+//       console.log(user)
+//     })
+//     .catch(function(error) {
+//       // Handle Errors here.
+//       var errorCode = error.code;
+//       var errorMessage = error.message;
+//     }
+// );
 
 var app = express();
 

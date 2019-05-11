@@ -1,26 +1,29 @@
 const express = require('express');
 const router = express.Router();
-const firebaseAdmin = require('firebase-admin');
 
+const firebase = require('firebase');
+const firebaseAdmin = require('firebase-admin');
 const firestoreDB = firebaseAdmin.firestore();
 const usersRef = firestoreDB.collection('users');
 
 // api/v1/users/add
 // {
+//     "email": "andns@mail.ru",
+//     "password": "password"
 //     "firstName": "Andrey",
 //     "lastName": "Chernenko",
 //     "nick": "neo",
 //     "birthDate": "19.10.1996",
-//     "email": "andns@mail.ru",
 //     "phone": "+375293429733",
 //     "userRole": "user"
 // }
 router.post('/add', function(req, res, next) {
     const uuidv1 = require('uuid/v1');
     const userId = uuidv1();
-    if (req.body.firstName == null,
+    if (req.body.email == null,
+        req.body.password == null,
+        req.body.firstName == null,
         req.body.lastName == null,
-        req.body.email == null,
         req.body.phone == null,
         req.body.userRole == null) {
         res.status(200).json({
@@ -28,29 +31,33 @@ router.post('/add', function(req, res, next) {
         });
         return;
     }
-    usersRef.doc(userId).set({
-        userId: userId,
-        firstName: req.body.firstName,
-        lastName: req.body.lastName,
-        nick: req.body.nick,
-        birthDate: req.body.birthDate,
-        email: req.body.email,
-        phone: req.body.phone,
-        userRole: req.body.userRole
-    })
-        .then(function() {
-            res.status(200).json({
-                code: "OK",
-                message: 'User added successfully'
+
+    firebase.auth().createUserWithEmailAndPassword(req.body.email, req.body.password)
+        .then( user => {
+            usersRef.doc(user.user.uid).set({
+                userId: user.user.uid,
+                firstName: req.body.firstName,
+                lastName: req.body.lastName,
+                nick: req.body.nick,
+                birthDate: req.body.birthDate,
+                email: req.body.email,
+                phone: req.body.phone,
+                userRole: req.body.userRole
+            })
+            .then(function() {
+                res.status(200).json({
+                    code: "OK",
+                    message: 'User added successfully'
+                });
             });
         })
         .catch( err => {
             res.status(500).json({
                 code: "ERR",
-                message: 'Create user error'
+                message: error.message
             });
             console.log(err);
-        })
+        });
 });
 
 // api/v1/users/remove?userId=d86ad0a0-6f4b-11e9-89a3-4ff3fd2b60a3
@@ -74,8 +81,9 @@ router.post('/remove', function(req, res, next) {
 
 // api/v1/users/all
 router.get('/all', function(req, res, next) {
-  usersRef.get()
+  usersRef
       .orderBy('lastName')
+      .get()
       .then(snapshot => {
         if (snapshot.empty) {
             res.status(200).json({
