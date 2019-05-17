@@ -53,6 +53,47 @@ const RatingType = new graphql.GraphQLObjectType({
     }
 });
 
+const CommentMessageType = new graphql.GraphQLObjectType({
+    name: 'MessageType',
+    fields: {
+        commentId: {
+            type: graphql.GraphQLString
+        },
+        userId: {
+            type: graphql.GraphQLString
+        },
+        message: {
+            type: graphql.GraphQLString
+        }
+    }
+});
+
+const CommentsType = new graphql.GraphQLObjectType({
+    name: 'Comments',
+    fields: {
+        orderId: {
+            type: graphql.GraphQLString
+        },
+        count: {
+            type: graphql.GraphQLInt
+        },
+        messages: {
+            type: new graphql.GraphQLList(CommentMessageType),
+            resolve: async (root) => {
+                return await commentsRef
+                    .doc(root.orderId)
+                    .collection('messages')
+                    .get()
+                    .then(snapshot => {
+                        return snapshot.docs.map(function (message) {
+                            return message.data();
+                        })
+                    })
+            }
+        }
+    }
+});
+
 const OrderType = new graphql.GraphQLObjectType({
     name: 'Order',
     fields: {
@@ -73,6 +114,17 @@ const OrderType = new graphql.GraphQLObjectType({
             resolve: async (source) => {
                 return await ratingRef
                     .doc(source.orderId)
+                    .get()
+                    .then(snapshot => {
+                        return snapshot.data()
+                    });
+            }
+        },
+        comments: {
+            type: CommentsType,
+            resolve: async (root) => {
+                return await commentsRef
+                    .doc(root.orderId)
                     .get()
                     .then(snapshot => {
                         return snapshot.data()
