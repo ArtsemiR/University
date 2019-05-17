@@ -41,7 +41,7 @@ router.post('/uploadImage',upload.single('image'),function(req, res, next) {
         );
         return next(err);
     }
-    `https://firebasestorage.googleapis.com/v0/b/university-26e9c.appspot.com/o/orders%2Fimage-1557328694459.png?alt=media`
+
     fbStorageBucket.upload(req.file.path, {
         destination: `orders/${req.file.filename}`,
         gzip: true,
@@ -132,7 +132,9 @@ router.post('/remove', function(req, res, next) {
 
 // api/v1/orders/all
 router.get('/all', function(req, res, next) {
-    ordersRef.get()
+    ordersRef
+        .orderBy('orderDate')
+        .get()
         .then(snapshot => {
             if (snapshot.empty) {
                 res.status(200).json({

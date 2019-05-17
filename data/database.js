@@ -14,7 +14,7 @@ var users = {
         "name": "Jessie",
         "messages": [1,4,1]
     }
-}
+};
 
 var messages = {
     1: {

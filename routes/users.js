@@ -32,23 +32,20 @@ router.post('/add', function(req, res, next) {
         return;
     }
 
-    firebase.auth().createUserWithEmailAndPassword(req.body.email, req.body.password)
-        .then( user => {
-            usersRef.doc(user.user.uid).set({
-                userId: user.user.uid,
-                firstName: req.body.firstName,
-                lastName: req.body.lastName,
-                nick: req.body.nick,
-                birthDate: req.body.birthDate,
-                email: req.body.email,
-                phone: req.body.phone,
-                userRole: req.body.userRole
-            })
-            .then(function() {
-                res.status(200).json({
-                    code: "OK",
-                    message: 'User added successfully'
-                });
+    usersRef.doc(user.user.uid).set({
+        userId: user.user.uid,
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        nick: req.body.nick,
+        birthDate: req.body.birthDate,
+        email: req.body.email,
+        phone: req.body.phone,
+        userRole: req.body.userRole
+    })
+        .then(function() {
+            res.status(200).json({
+                code: "OK",
+                message: 'User added successfully'
             });
         })
         .catch( err => {
