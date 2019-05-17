@@ -42,6 +42,7 @@ const ordersRoutes = require('./routes/orders');
 const ratingRoutes = require('./routes/rating');
 const commentsRoutes = require('./routes/comments');
 const ordersGraphQLSchema = require('./routes/ordersGraphQLSchema');
+const ordersGraphQLSchemaPagination = require('./routes/ordersGraphQLSchemaPagination');
 
 app.use('/', indexRouter);
 app.use('/api/v1/users', usersRouter);
@@ -50,6 +51,10 @@ app.use('/api/v1/rating', ratingRoutes);
 app.use('/api/v1/comments', commentsRoutes);
 app.use('/api/v1/ordersgraphql', graphQL({
   schema: ordersGraphQLSchema,
+  pretty: true
+}));
+app.use('/api/v1/ordersgraphqlpagination', graphQL({
+  schema: ordersGraphQLSchemaPagination,
   pretty: true
 }));
 
