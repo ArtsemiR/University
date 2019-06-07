@@ -32,8 +32,8 @@ router.post('/add', function(req, res, next) {
         return;
     }
 
-    usersRef.doc(user.user.uid).set({
-        userId: user.user.uid,
+    usersRef.doc(userId).set({
+        userId: userId,
         firstName: req.body.firstName,
         lastName: req.body.lastName,
         nick: req.body.nick,
@@ -152,8 +152,6 @@ router.get('/', function(req, res, next) {
                 .startAt(snapshot.docs[(page - 1) * size])
                 .limit(size)
                 .get().then( doc => {
-                console.log(2);
-                console.log((page - 1) * size);
                     res.status(200).json({
                         code: "OK",
                         users: doc.docs.map(function (user) {

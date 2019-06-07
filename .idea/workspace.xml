@@ -2,9 +2,46 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6f818933-b024-40bd-b42e-f9b0fc9c1197" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UniversityApp/UniversityApp.xcodeproj/project.pbxproj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UniversityApp/UniversityApp.xcodeproj/project.xcworkspace/contents.xcworkspacedata" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UniversityApp/UniversityApp.xcodeproj/project.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UniversityApp/UniversityApp.xcodeproj/project.xcworkspace/xcuserdata/ar.xcuserdatad/UserInterfaceState.xcuserstate" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UniversityApp/UniversityApp.xcodeproj/xcuserdata/ar.xcuserdatad/xcschemes/xcschememanagement.plist" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UniversityApp/UniversityApp/AppDelegate.swift" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UniversityApp/UniversityApp/Assets.xcassets/AppIcon.appiconset/Contents.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UniversityApp/UniversityApp/Assets.xcassets/Contents.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UniversityApp/UniversityApp/Assets.xcassets/comments.imageset/Contents.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UniversityApp/UniversityApp/Assets.xcassets/comments.imageset/comments.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UniversityApp/UniversityApp/Assets.xcassets/dislike.imageset/Contents.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UniversityApp/UniversityApp/Assets.xcassets/dislike.imageset/thumbs-down-512.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UniversityApp/UniversityApp/Assets.xcassets/latest.imageset/Contents.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UniversityApp/UniversityApp/Assets.xcassets/latest.imageset/latest.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UniversityApp/UniversityApp/Assets.xcassets/like.imageset/Contents.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UniversityApp/UniversityApp/Assets.xcassets/like.imageset/like.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UniversityApp/UniversityApp/Assets.xcassets/logo-belsut.imageset/Contents.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UniversityApp/UniversityApp/Assets.xcassets/logo-belsut.imageset/logo-belsut.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UniversityApp/UniversityApp/Assets.xcassets/news.imageset/Contents.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UniversityApp/UniversityApp/Assets.xcassets/news.imageset/news.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UniversityApp/UniversityApp/Assets.xcassets/order.imageset/Contents.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UniversityApp/UniversityApp/Assets.xcassets/order.imageset/order.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UniversityApp/UniversityApp/Assets.xcassets/top.imageset/Contents.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UniversityApp/UniversityApp/Assets.xcassets/top.imageset/top.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UniversityApp/UniversityApp/Base.lproj/LaunchScreen.storyboard" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UniversityApp/UniversityApp/Base.lproj/Main.storyboard" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UniversityApp/UniversityApp/Content/ARManageUserViewController.swift" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UniversityApp/UniversityApp/Content/ARNewsViewController.swift" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UniversityApp/UniversityApp/Content/Orders/ARLatestOrdersViewController.swift" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UniversityApp/UniversityApp/Content/Orders/ARTopOrdersViewController.swift" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UniversityApp/UniversityApp/Content/Orders/Cells/AROrderCell.swift" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UniversityApp/UniversityApp/Content/Orders/NetModels/AROrderModel.swift" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UniversityApp/UniversityApp/GoogleService-Info.plist" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UniversityApp/UniversityApp/Info.plist" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UniversityApp/UniversityApp/Login/ARLoginViewController.swift" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UniversityApp/UniversityApp/Login/ARRegisterViewController.swift" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UniversityApp/UniversityApp/Net/ARNet.swift" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/ordersGraphQLSchema.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/ordersGraphQLSchema.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/ordersGraphQLSchemaPagination.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/ordersGraphQLSchemaPagination.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/users.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/users.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -26,11 +63,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/routes/users.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="882">
-              <caret line="49" column="10" selection-start-line="49" selection-start-column="10" selection-end-line="49" selection-end-column="10" />
+            <state relative-caret-position="347">
+              <caret line="27" column="34" selection-start-line="22" selection-start-column="8" selection-end-line="27" selection-end-column="34" />
             </state>
           </provider>
         </entry>
@@ -38,8 +75,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/routes/orders.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3906">
-              <caret line="217" column="10" selection-start-line="168" selection-start-column="4" selection-end-line="217" selection-end-column="10" />
+            <state relative-caret-position="1602">
+              <caret line="89" column="19" selection-start-line="89" selection-start-column="19" selection-end-line="89" selection-end-column="19" />
               <folding>
                 <element signature="n#!!block;n#createRating#0" />
                 <element signature="n#!!block;n#createDiscusstion#0" />
@@ -51,20 +88,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/routes/ordersGraphQLSchemaPagination.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-2531">
-              <caret line="14" column="16" lean-forward="true" selection-start-line="14" selection-start-column="16" selection-end-line="14" selection-end-column="16" />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/routes/ordersGraphQLSchema.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="300">
-              <caret line="132" column="9" lean-forward="true" selection-start-line="122" selection-start-column="8" selection-end-line="132" selection-end-column="9" />
+            <state relative-caret-position="1728">
+              <caret line="96" column="49" selection-start-line="96" selection-start-column="49" selection-end-line="96" selection-end-column="49" />
             </state>
           </provider>
         </entry>
@@ -90,6 +118,7 @@
   <component name="FindInProjectRecents">
     <findStrings>
       <find>ratingRef</find>
+      <find>user</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -102,14 +131,14 @@
         <option value="$PROJECT_DIR$/routes/rating.js" />
         <option value="$PROJECT_DIR$/data/data.json" />
         <option value="$PROJECT_DIR$/routes/comments.js" />
-        <option value="$PROJECT_DIR$/routes/users.js" />
         <option value="$PROJECT_DIR$/data/database.js" />
         <option value="$PROJECT_DIR$/data/schema.js" />
         <option value="$PROJECT_DIR$/bin/www" />
-        <option value="$PROJECT_DIR$/routes/orders.js" />
         <option value="$PROJECT_DIR$/app.js" />
-        <option value="$PROJECT_DIR$/routes/ordersGraphQLSchema.js" />
         <option value="$PROJECT_DIR$/routes/ordersGraphQLSchemaPagination.js" />
+        <option value="$PROJECT_DIR$/routes/users.js" />
+        <option value="$PROJECT_DIR$/routes/orders.js" />
+        <option value="$PROJECT_DIR$/routes/ordersGraphQLSchema.js" />
       </list>
     </option>
   </component>
@@ -119,10 +148,9 @@
     <other-services-enabled>true</other-services-enabled>
     <auto-save>true</auto-save>
   </component>
-  <component name="ProjectFrameBounds">
-    <option name="y" value="23" />
+  <component name="ProjectFrameBounds" fullScreen="true">
     <option name="width" value="1680" />
-    <option name="height" value="1027" />
+    <option name="height" value="1050" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -136,11 +164,6 @@
             <path>
               <item name="University" type="b2602c69:ProjectViewProjectNode" />
               <item name="University" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="University" type="b2602c69:ProjectViewProjectNode" />
-              <item name="University" type="462c0819:PsiDirectoryNode" />
-              <item name="bin" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="University" type="b2602c69:ProjectViewProjectNode" />
@@ -265,7 +288,25 @@
       <workItem from="1558098946085" duration="1601000" />
       <workItem from="1558105037320" duration="1671000" />
       <workItem from="1558121517450" duration="977000" />
-      <workItem from="1558123776309" duration="1376000" />
+      <workItem from="1558123776309" duration="1816000" />
+      <workItem from="1558290162864" duration="236000" />
+      <workItem from="1558552636180" duration="1334000" />
+      <workItem from="1558863267424" duration="1098000" />
+      <workItem from="1558891962114" duration="931000" />
+      <workItem from="1558893963778" duration="453000" />
+      <workItem from="1559392523631" duration="964000" />
+      <workItem from="1559395048905" duration="393000" />
+      <workItem from="1559398026143" duration="507000" />
+      <workItem from="1559477407281" duration="198000" />
+      <workItem from="1559479461404" duration="1201000" />
+      <workItem from="1559481566313" duration="943000" />
+      <workItem from="1559483411058" duration="395000" />
+      <workItem from="1559485552163" duration="536000" />
+      <workItem from="1559488108612" duration="520000" />
+      <workItem from="1559490549176" duration="483000" />
+      <workItem from="1559492428623" duration="379000" />
+      <workItem from="1559908335131" duration="722000" />
+      <workItem from="1559912294950" duration="446000" />
     </task>
     <task id="LOCAL-00001" summary="users">
       <created>1553616082874</created>
@@ -278,18 +319,17 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="98503000" />
+    <option name="totallyTimeSpent" value="110682000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1680" height="1027" extended-state="0" />
-    <editor active="true" />
+    <frame x="0" y="0" width="1680" height="1050" extended-state="0" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.21699819" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32941177" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.1882353" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.23673469" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -459,6 +499,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/routes/ordersGraphQLSchemaPagination.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="192">
+          <caret line="141" column="19" selection-start-line="141" selection-start-column="19" selection-end-line="141" selection-end-column="19" />
+          <folding>
+            <element signature="e#4304#4369#0" />
+            <element signature="e#4457#4982#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="684">
@@ -466,17 +517,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/routes/users.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="882">
-          <caret line="49" column="10" selection-start-line="49" selection-start-column="10" selection-end-line="49" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/routes/orders.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3906">
-          <caret line="217" column="10" selection-start-line="168" selection-start-column="4" selection-end-line="217" selection-end-column="10" />
+        <state relative-caret-position="1602">
+          <caret line="89" column="19" selection-start-line="89" selection-start-column="19" selection-end-line="89" selection-end-column="19" />
           <folding>
             <element signature="n#!!block;n#createRating#0" />
             <element signature="n#!!block;n#createDiscusstion#0" />
@@ -487,6 +531,13 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/routes/ordersGraphQLSchema.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1728">
+          <caret line="96" column="49" selection-start-line="96" selection-start-column="49" selection-end-line="96" selection-end-column="49" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/routes/rating.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="504">
@@ -494,17 +545,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/routes/ordersGraphQLSchema.js">
+    <entry file="file://$PROJECT_DIR$/routes/users.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="132" column="9" lean-forward="true" selection-start-line="122" selection-start-column="8" selection-end-line="132" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/routes/ordersGraphQLSchemaPagination.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2531">
-          <caret line="14" column="16" lean-forward="true" selection-start-line="14" selection-start-column="16" selection-end-line="14" selection-end-column="16" />
+        <state relative-caret-position="347">
+          <caret line="27" column="34" selection-start-line="22" selection-start-column="8" selection-end-line="27" selection-end-column="34" />
         </state>
       </provider>
     </entry>

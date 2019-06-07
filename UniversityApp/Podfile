@@ -1,0 +1,10 @@
+platform :ios, '11.0'
+use_frameworks!
+
+target 'UniversityApp' do
+    pod 'SnapKit', '~> 5.0.0'
+    pod 'Alamofire', '~> 4.8'
+    pod 'AlamofireImage', '~> 3.5.2'
+    pod 'FirebaseUI/Auth'
+    pod 'Firebase/Core'
+end
